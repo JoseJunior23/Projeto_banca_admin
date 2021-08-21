@@ -4,7 +4,9 @@
 ---
 ### 💻 Tecnologias utilizadas: 
  - [React](https://pt-br.reactjs.org/)
+ - [Tyopeorm](https://typeorm.io/#/)
  - [Typescript](https://www.typescriptlang.org/)
+ - [Node](https://nodejs.org/en/docs/)
 ---
 ### Clone do projeto
 ``` bash
