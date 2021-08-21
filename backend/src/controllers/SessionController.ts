@@ -23,7 +23,7 @@ class SessionController {
 
       return response.status(201).json(session)
     } catch (e) {
-      return response.status(500).json('Database not found!!!')
+      return response.status(500).json({ message: 'Internal server error 💣' })
     }
 
   }
@@ -34,7 +34,7 @@ class SessionController {
       const sessions = await sessionRepository.find();
       return response.json(sessions)
     } catch (e) {
-      return response.status(500).json('Database not found!!!')
+      return response.status(500).json({ message: 'Internal server error 💣' })
     }
   }
 
@@ -45,7 +45,7 @@ class SessionController {
       const session = await sessionRepository.findOne(id);
       return response.json(session)
     } catch (e) {
-      return response.status(500).json('Database not found!!!')
+      return response.status(500).json({ message: 'Internal server error 💣' })
     }
   }
 
@@ -64,7 +64,7 @@ class SessionController {
       await sessionRepository.update(id, request.body)
       return response.status(200).json({ message: 'Secão Atualizada com sucesso' })
     } catch (e) {
-      return response.status(500).json('Database not found!!!')
+      return response.status(500).json({ message: 'Internal server error 💣' })
     }
   }
 
@@ -75,7 +75,7 @@ class SessionController {
       await sessionRepository.delete(id);
       return response.status(200).json({ message: 'Secão deletada com sucesso' })
     } catch (e) {
-      return response.status(500).json('Database not found!!!')
+      return response.status(500).json({ message: 'Internal server error 💣' })
     }
   }
 }
