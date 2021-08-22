@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Session } from "./Session";
 
 @Entity('employee')
 class Employee {
@@ -13,6 +14,9 @@ class Employee {
 
   @Column()
   phone: string;
+
+  @ManyToOne(type => Session, employee => Employee, { eager: true })
+  session: Session;
 
   @CreateDateColumn()
   created_at: Date;
