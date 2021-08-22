@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { TeamInformation } from "./TeamInformation";
 
 @Entity('team')
 class Team {
@@ -10,6 +11,9 @@ class Team {
 
   @Column()
   description: string;
+
+  @OneToMany(type => TeamInformation, team => Team)
+  team_information: TeamInformation;
 
   @CreateDateColumn()
   created_at: Date;
