@@ -20,7 +20,7 @@ class Employee {
   session: Session;
 
   @OneToMany(type => TeamInformation, employee => Employee)
-  team_infromation: TeamInformation[];
+  team_information: TeamInformation[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { PlanoInformation } from "./PlanoInformation";
 
 @Entity('plano')
 class Plano {
@@ -16,6 +17,9 @@ class Plano {
 
   @Column()
   plano_factory: number;
+
+  @OneToMany(type => PlanoInformation, plano => Plano)
+  plano_information: PlanoInformation[];
 
   @CreateDateColumn()
   created_at: Date;

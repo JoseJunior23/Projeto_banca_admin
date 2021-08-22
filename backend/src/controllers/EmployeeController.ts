@@ -17,7 +17,7 @@ class EmployeeController {
       }
 
       const sessionExists = await sessionRepository.findOne(session);
-      console.log(sessionExists)
+      // console.log(sessionExists)
 
       const employee = employeeRepository.create({
         name,
