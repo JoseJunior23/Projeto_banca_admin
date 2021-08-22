@@ -7,23 +7,23 @@ class EmployeeController {
   async store(request: Request, response: Response) {
     try {
       const employeeRepository = getRepository(Employee);
-      const sessionRepository = getRepository(Session)
+      const sessionRepository = getRepository(Session);
 
-      const { name, nickname, phone, session } = request.body
+      const { name, nickname, phone, session } = request.body;
 
       const employeeExists = await employeeRepository.findOne({ where: { nickname } });
       if (employeeExists) {
         return response.status(409).json({ message: 'Este apelido ja foi cadastrado 🥵' })
       }
 
-      const sessionExists = await sessionRepository.findByIds(session);
+      const sessionExists = await sessionRepository.findOne(session);
       console.log(sessionExists)
 
       const employee = employeeRepository.create({
         name,
         nickname,
         phone,
-        session
+        session: sessionExists
       });
 
       await employeeRepository.save(employee);

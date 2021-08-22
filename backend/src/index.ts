@@ -2,6 +2,7 @@ import express from 'express';
 import 'reflect-metadata';
 import './database/connection';
 import { employeeRouter } from './routes/EmployeeRouter';
+import { planoRouter } from './routes/PlanoRouter';
 import { sessionRouter } from './routes/SessionRouter';
 import { teamInfoRouter } from './routes/TeamInfoRouter';
 import { teamRouter } from './routes/TeamRouter';
@@ -13,5 +14,6 @@ app.use(sessionRouter);
 app.use(employeeRouter);
 app.use(teamRouter);
 app.use(teamInfoRouter);
+app.use(planoRouter);
 
 app.listen(3000, () => console.log('✅ Server started at http://localhost:3000'));
