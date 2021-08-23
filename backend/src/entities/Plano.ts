@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Factory } from "./Factory";
 import { PlanoInformation } from "./PlanoInformation";
 
 @Entity('plano')
@@ -20,6 +21,9 @@ class Plano {
 
   @OneToMany(type => PlanoInformation, plano => Plano)
   plano_information: PlanoInformation[];
+
+  @ManyToOne(type => Factory, plano => Plano, { eager: true })
+  factory: Factory;
 
   @CreateDateColumn()
   created_at: Date;
