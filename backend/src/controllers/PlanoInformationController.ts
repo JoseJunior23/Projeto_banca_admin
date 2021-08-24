@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { Model } from "../entities/Model";
 import { Plano } from "../entities/Plano";
 import { PlanoInformation } from "../entities/PlanoInformation";
 import { Team } from "../entities/Team";
@@ -10,6 +11,7 @@ class PlanoInformationController {
       const planoInformationRepository = getRepository(PlanoInformation);
       const teamRepository = getRepository(Team);
       const planoRepository = getRepository(Plano);
+      const modelRepository = getRepository(Model);
 
       const {
         entry_date,
@@ -20,21 +22,26 @@ class PlanoInformationController {
         billed_date,
         payment_date,
         team,
-        plano
+        plano,
+        model
       } = request.body
 
       const existsPlanoInformation = await planoInformationRepository.findOne({ where: { ficha_producao } });
       if (existsPlanoInformation) {
         return response.status(409).json({ message: 'Ficha já cadastrada !!!' })
       }
-      const teamExits = await teamRepository.findOne(team);
-      if (!teamExits) {
-        return response.status(409).json({ message: 'id do grupo não encontrado !!!' })
-      }
-      const planoExits = await planoRepository.findOne(plano)
-      if (!planoExits) {
-        return response.status(409).json({ message: 'id do plano não encontrado !!!' })
-      }
+      // const teamExits = await teamRepository.findOne(team);
+      // if (!teamExits) {
+      //   return response.status(409).json({ message: 'id do grupo não encontrado !!!' })
+      // }
+      // const planoExits = await planoRepository.findOne(plano)
+      // if (!planoExits) {
+      //   return response.status(409).json({ message: 'id do plano não encontrado !!!' })
+      // }
+      // const modelExits = await planoRepository.findOne(model)
+      // if (!modelExits) {
+      //   return response.status(409).json({ message: 'id do modelo não encontrado !!!' })
+      // }
 
       const planoInformation = planoInformationRepository.create({
         entry_date,
@@ -44,8 +51,9 @@ class PlanoInformationController {
         billed,
         billed_date,
         payment_date,
-        team: teamExits,
-        plano: planoExits
+        team,
+        plano,
+        model
       })
 
       await planoInformationRepository.save(planoInformation)

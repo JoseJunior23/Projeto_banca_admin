@@ -16,14 +16,14 @@ class EmployeeController {
         return response.status(409).json({ message: 'Este apelido ja foi cadastrado 🥵' })
       }
 
-      const sessionExists = await sessionRepository.findOne(session);
+      // const sessionExists = await sessionRepository.findByIds(session);
       // console.log(sessionExists)
 
       const employee = employeeRepository.create({
         name,
         nickname,
         phone,
-        session: sessionExists
+        session
       });
 
       await employeeRepository.save(employee);

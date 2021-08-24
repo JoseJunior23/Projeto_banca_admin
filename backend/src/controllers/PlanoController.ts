@@ -1,19 +1,27 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { Factory } from "../entities/Factory";
 import { Plano } from "../entities/Plano";
 
 class PlanoController {
   async store(request: Request, response: Response) {
     try {
       const planoRepository = getRepository(Plano);
+      const factoryRepository = getRepository(Factory);
 
-      const { variation, description, entry_date, plano_factory } = request.body
+      const { variation, description, entry_date, plano_factory, factory } = request.body
+
+      const factoryExits = await factoryRepository.findOne(factory)
+      if (!factoryExits) {
+        return response.status(409).json({ message: 'id do plano não encontrado !!!' })
+      }
 
       const plano = planoRepository.create({
         variation,
         description,
         entry_date,
-        plano_factory
+        plano_factory,
+        factory: factoryExits
       })
 
       await planoRepository.save(plano)

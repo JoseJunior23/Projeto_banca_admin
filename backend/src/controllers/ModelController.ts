@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { Factory } from "../entities/Factory";
 import { Model } from "../entities/Model";
 
 class ModelController {
   async store(request: Request, response: Response) {
     try {
       const modelRepository = getRepository(Model);
+      const factoryRepository = getRepository(Factory);
 
-      const { reference, description, par_value, pesponto_value, colacao_value } = request.body
+
+      const { reference, description, par_value, pesponto_value, colacao_value, factory } = request.body
 
       const existsModel = await modelRepository.findOne({ where: { reference } });
       if (existsModel) {
@@ -19,7 +22,8 @@ class ModelController {
         description,
         par_value,
         pesponto_value,
-        colacao_value
+        colacao_value,
+        factory
       })
 
       await modelRepository.save(model)
