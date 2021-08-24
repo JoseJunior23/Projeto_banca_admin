@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Model } from "./Model";
 import { Plano } from "./Plano";
 import { Team } from "./Team";
 
@@ -33,6 +34,9 @@ class PlanoInformation {
 
   @ManyToOne(type => Plano, plano_information => PlanoInformation, { eager: true })
   plano: Plano;
+
+  @ManyToOne(type => Model, plano_information => PlanoInformation, { eager: true })
+  model: Model;
 
   @CreateDateColumn()
   created_at: Date;

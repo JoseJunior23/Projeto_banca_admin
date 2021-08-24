@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import './database/connection';
 import { employeeRouter } from './routes/EmployeeRouter';
 import { factoryRouter } from './routes/FactoryRouter';
+import { modelRouter } from './routes/ModelRouter';
 import { planoInformationRouter } from './routes/PlanoInformationRouter';
 import { planoRouter } from './routes/PlanoRouter';
 import { sessionRouter } from './routes/SessionRouter';
@@ -19,5 +20,6 @@ app.use(teamInfoRouter);
 app.use(planoRouter);
 app.use(planoInformationRouter);
 app.use(factoryRouter);
+app.use(modelRouter);
 
 app.listen(3000, () => console.log('✅ Server started at http://localhost:3000'));
