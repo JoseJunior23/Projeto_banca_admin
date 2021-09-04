@@ -5,7 +5,7 @@ const sessionRouter = Router();
 sessionRouter.post('/session', SessionController.store);
 sessionRouter.get('/session', SessionController.index);
 sessionRouter.get('/session/:id', SessionController.show);
-sessionRouter.put('/session/:id', SessionController.update);
-sessionRouter.delete('/session', SessionController.delete);
+sessionRouter.put('/session-edit/:id', SessionController.update);
+sessionRouter.delete('/session-delete', SessionController.delete);
 
 export { sessionRouter };

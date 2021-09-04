@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom"
-import { Header } from "../../components/Header/Header"
 import "./styles.scss"
+
 export function MainPage() {
   return (
     <>
-      <Header />
       <div className="main-page">
         <h1>Bem vindo ao Banca admin</h1>
       </div>
@@ -14,7 +13,10 @@ export function MainPage() {
         </Link><br />
         <Link to="/session-list">
           <button>Lista de Seções:</button>
-        </Link>
+        </Link><br />
+        <Link to="/session-edit">
+          <button>Editar uma Seção:</button>
+        </Link><br />
         <Link to="/employee">
           <button>Cadastro de um  novo funcionario:</button>
         </Link><br />

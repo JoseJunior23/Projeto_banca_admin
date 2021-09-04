@@ -1,13 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as yup from "yup";
 import api from '../../services/api';
 
-interface SessionDate {
-  name: string
-  description: string
+interface ISession {
+  id: number;
+  name: string;
+  description: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 const schema = yup.object().shape({
@@ -15,24 +18,36 @@ const schema = yup.object().shape({
   description: yup.string().required("A descrição é obrigatório")
 })
 
-export default function Session() {
-  let history = useHistory();
+export function SessionEdit() {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
+  let history = useHistory();
+  const { id } = useParams<{ id: string }>();
 
-
-  const { register, handleSubmit, formState: { errors } } = useForm<SessionDate>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<ISession>({
     resolver: yupResolver(schema)
   })
 
-  const handleCreateSession = async (data: SessionDate) => await api.post("/session", data)
-    .then(() => {
-      console.log("Deu tudo certo")
-      history.push("/session-list")
-    })
-    .catch(() => {
-      console.log("DEU ERRADO")
-    })
+
+  const handleUpdateSession = async (data: ISession) => {
+    await api.put(`/session-edit/${id}`, data)
+      .then(() => {
+        console.log("Deu tudo certo")
+        history.push("/session-list")
+      })
+      .catch(() => {
+        console.log("DEU ERRADO")
+      })
+  }
+
+  useEffect(() => {
+    api.get(`/session/${id}`)
+      .then((response) => {
+        reset(response.data)
+      })
+  }, [id, reset]);
+
+
   return (
     <>
       <div>
@@ -41,7 +56,7 @@ export default function Session() {
             <h2>Cadastrar Seção:</h2>
             <div className="line-post"></div>
             <div className="card-body-post">
-              <form onSubmit={handleSubmit(handleCreateSession)}>
+              <form onSubmit={handleSubmit(handleUpdateSession)}>
                 <div className="fields">
                   <label>Nome da secão: </label>
                   <input
@@ -70,5 +85,5 @@ export default function Session() {
         </main>
       </div>
     </>
-  )
-}
+  );
+};
