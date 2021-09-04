@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { formatDate } from "../../validations/FormatDate/FormatDate";
 import "./styles.scss";
 
 
-interface SessionData {
+interface ISession {
   id: number;
   name: string;
   description: string;
@@ -14,8 +14,7 @@ interface SessionData {
 }
 
 export function SessionList() {
-  const [sessions, setSessions] = useState<SessionData[]>([] as SessionData[]);
-  const { id } = useParams<{ id: string }>();
+  const [sessions, setSessions] = useState<ISession[]>([] as ISession[]);
 
   useEffect(() => {
     api.get("/session")
@@ -24,10 +23,11 @@ export function SessionList() {
       .catch(() => console.log("Erro ao listar seções"))
   }, [])
 
-  function deleteSession(sessionId: number) {
-    api.delete("/session-delete")
+  function deleteSession(id: number) {
+    api.delete(`/session-delete/${id}`);
     setSessions(sessions.filter(session => session.id !== id))
   }
+
   return (
     <>
       <h2>Seções cadastradas:</h2>

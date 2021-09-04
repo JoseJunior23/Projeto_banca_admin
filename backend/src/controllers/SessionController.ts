@@ -70,8 +70,16 @@ class SessionController {
 
   async delete(request: Request, response: Response) {
     try {
+      const { id } = request.params
+      if (!id) {
+        return response.status(400).json({ message: 'Erro na validação do Id' })
+      }
       const sessionRepository = getRepository(Session);
-      const { id } = request.body;
+
+      const session = await sessionRepository.findOne(id)
+      if (!session) {
+        return response.status(400).json({ message: 'Secão não encontrada' })
+      }
       await sessionRepository.delete(id);
       return response.status(200).json({ message: 'Secão deletada com sucesso' })
     } catch (e) {
