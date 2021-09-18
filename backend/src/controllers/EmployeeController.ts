@@ -78,8 +78,15 @@ class EmployeeController {
 
   async delete(request: Request, response: Response) {
     try {
+      const { id } = request.params
+      if (!id) {
+        return response.status(400).json({ message: 'Erro na validação do Id 🥴' })
+      }
       const employeeRepository = getRepository(Employee);
-      const { id } = request.body;
+      const employee = await employeeRepository.findOne(id)
+      if (!employee) {
+        return response.status(400).json({ message: 'Funcionario não encontrado 😨' })
+      }
       await employeeRepository.delete(id);
       return response.status(200).json({ message: 'Funcionario deletado com sucesso 👍' })
     } catch (e) {

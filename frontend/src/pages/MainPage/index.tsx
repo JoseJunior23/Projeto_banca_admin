@@ -14,9 +14,6 @@ export function MainPage() {
         <Link to="/session-list">
           <button>Lista de Seções:</button>
         </Link><br />
-        <Link to="/session-edit">
-          <button>Editar uma Seção:</button>
-        </Link><br />
         <Link to="/employee">
           <button>Cadastro de um  novo funcionario:</button>
         </Link><br />

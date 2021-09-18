@@ -5,16 +5,17 @@ import { formatDate } from "../../validations/FormatDate/FormatDate";
 import "./styles.scss";
 
 
-interface ISession {
+export interface SessionProps {
   id: number;
   name: string;
-  description: string;
+  description?: string;
   created_at: Date;
   updated_at: Date;
 }
 
+
 export function SessionList() {
-  const [sessions, setSessions] = useState<ISession[]>([] as ISession[]);
+  const [sessions, setSessions] = useState<SessionProps[]>([] as SessionProps[]);
 
   useEffect(() => {
     api.get("/session")
@@ -30,9 +31,10 @@ export function SessionList() {
 
   return (
     <>
-      <h2>Seções cadastradas:</h2>
       <main>
+
         <div className="cards">
+          <h2>Seções cadastradas:</h2>
           {sessions.map((session, key) => {
             return (
               <div className="card" key={key}>
@@ -47,7 +49,7 @@ export function SessionList() {
                 </div>
                 <div className="btns">
                   <div className="btn-edit">
-                    <Link to={{ pathname: `session-edit/${session.id}` }}>
+                    <Link to={{ pathname: `/session-edit/${session.id}` }}>
                       <button>Editar</button>
                     </Link>
                   </div>

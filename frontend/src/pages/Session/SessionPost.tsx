@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import * as yup from "yup";
 import api from '../../services/api';
 
-interface SessionDate {
+interface SessionProps {
   name: string
   description: string
 }
@@ -15,24 +15,24 @@ const schema = yup.object().shape({
   description: yup.string().required("A descrição é obrigatório")
 })
 
-export default function Session() {
+export function SessionPost() {
   let history = useHistory();
+
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
 
-
-  const { register, handleSubmit, formState: { errors } } = useForm<SessionDate>({
+  const { register, handleSubmit, formState: { errors } } = useForm<SessionProps>({
     resolver: yupResolver(schema)
   })
 
-  const handleCreateSession = async (data: SessionDate) => await api.post("/session", data)
-    .then(() => {
-      console.log("Deu tudo certo")
-      history.push("/session-list")
-    })
-    .catch(() => {
-      console.log("DEU ERRADO")
-    })
+  const handleCreateSession = async (data: SessionProps) =>
+    await api.post("/session", data)
+      .then(() => {
+        history.push("/session-list")
+      })
+      .catch(() => {
+        console.log("erro ao listar seção")
+      })
   return (
     <>
       <div>

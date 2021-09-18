@@ -15,7 +15,7 @@ img {
   cursor: pointer;
 }
 
-.modal {
+.modal  {
   width: 80px;
   height: 100px;
   background-color: white;
@@ -41,7 +41,7 @@ main .cards .card {
 
 }
 
-.cards .card header {
+.cards .card header select {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
